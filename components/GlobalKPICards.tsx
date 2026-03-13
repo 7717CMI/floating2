@@ -200,6 +200,8 @@ export function GlobalKPICards() {
             <div className="p-1.5 bg-blue-100 rounded">
               {kpiData.currency === 'INR' ? (
                 <span className="text-blue-600 font-bold text-lg">₹</span>
+              ) : kpiData.currency === 'JPY' ? (
+                <span className="text-blue-600 font-bold text-lg">¥</span>
               ) : (
                 <DollarSign className="h-4 w-4 text-blue-600" />
               )}
@@ -212,7 +214,7 @@ export function GlobalKPICards() {
                 {kpiData.dataType === 'value' && kpiData.isINR
                   ? `₹ ${formatIndianNumber(kpiData.marketSizeStart)}`
                   : kpiData.dataType === 'value'
-                  ? `$ ${kpiData.marketSizeStart.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`
+                  ? `${kpiData.currency === 'JPY' ? '¥' : '$'} ${kpiData.marketSizeStart.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`
                   : `${kpiData.marketSizeStart.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`}
               </p>
             </div>
@@ -231,7 +233,7 @@ export function GlobalKPICards() {
                 {kpiData.dataType === 'value' && kpiData.isINR
                   ? `₹ ${formatIndianNumber(kpiData.marketSizeEnd)}`
                   : kpiData.dataType === 'value'
-                  ? `$ ${kpiData.marketSizeEnd.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`
+                  ? `${kpiData.currency === 'JPY' ? '¥' : '$'} ${kpiData.marketSizeEnd.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`
                   : `${kpiData.marketSizeEnd.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`}
               </p>
             </div>
@@ -265,7 +267,7 @@ export function GlobalKPICards() {
                 {kpiData.dataType === 'value' && kpiData.isINR
                   ? `₹ ${formatIndianNumber(kpiData.absoluteGrowth)}`
                   : kpiData.dataType === 'value'
-                  ? `$ ${kpiData.absoluteGrowth.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`
+                  ? `${kpiData.currency === 'JPY' ? '¥' : '$'} ${kpiData.absoluteGrowth.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`
                   : `${kpiData.absoluteGrowth.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${kpiData.unit}`}
               </p>
               <p className="text-[10px] text-gray-600 mt-0.5">
@@ -273,6 +275,16 @@ export function GlobalKPICards() {
               </p>
             </div>
           </div>
+        </div>
+        <div className="mt-3 mx-auto max-w-2xl bg-red-50 border border-red-300 rounded-lg px-4 py-2 flex items-center gap-2 justify-center">
+          <svg className="h-4 w-4 text-red-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <p className="text-xs text-red-700 font-semibold">
+            NOTE: All data in this is demo data. No real-world data is related to this.
+          </p>
         </div>
       </div>
     </div>
