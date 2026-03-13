@@ -1505,7 +1505,7 @@ export async function processJsonDataAsync(
       forecast_years: allYears.filter(y => y > historicalEndYear),
       currency: 'JPY',
       value_unit: 'Billion',
-      volume_unit: 'Properties',
+      volume_unit: 'Unit',
       has_value: valueRecords.length > 0,
       has_volume: volumeRecords.length > 0,
     }
