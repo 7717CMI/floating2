@@ -204,7 +204,7 @@ export default function DashboardPage() {
                 Coherent Dashboard
               </h1>
               <h2 className="text-sm text-black">
-                {dashboardName || 'Global Normothermic Machine Perfusion Market'}
+                {dashboardName || 'Floating Hotel Market Demand Analysis and Market Outlook, Japan & Global, 2021–2033'}
               </h2>
             </div>
           </div>

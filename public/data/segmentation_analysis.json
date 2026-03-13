@@ -1,63 +1,72 @@
 {
   "Global": {
-    "By Type": {
-      "Sub-Normothermic Perfusion (20–34°C)": {},
-      "Warm or Normothermic Perfusion (35–37°C)": {}
+    "By Accommodation Format": {
+      "Floating / houseboat stays": {},
+      "Overwater / floating villa stays": {},
+      "Waterfront luxury villas": {},
+      "Boutique experiential resort stays": {}
     },
-    "By Organ Type": {
-      "Liver": {},
-      "Heart": {},
-      "Lung": {},
-      "Kidney": {},
-      "Others (Pancreas, Small bowel / Intestine, Composite Tissues / Limb Perfusion (emerging use cases))": {}
+    "By Price Positioning": {
+      "Premium": {},
+      "Luxury": {},
+      "Ultra-luxury": {}
     },
-    "Application / Use Case": {
-      "Organ Preservation": {},
-      "Viability Assessment": {},
-      "Physiologic Transport": {},
-      "Reconditioning Marginal Organs": {},
-      "Others (Research Use / Protocol development)": {}
+    "By Guest Segment": {
+      "Domestic affluent leisure travelers": {},
+      "Inbound luxury travelers": {},
+      "Couples / celebration stays": {},
+      "Families / private groups / exclusive-use stays": {}
     },
-    "By End User": {
-      "Hospitals & Clinics": {},
-      "Specialty Clinic/Centers": {},
-      "Transplant Centers": {},
-      "Others (Research Institutes/Centers, Organ Procurement Organizations, etc.)": {}
+    "By Destination Type in Japan": {
+      "Coastal / beach resort destinations": {},
+      "Island destinations": {},
+      "Lake / nature waterfront destinations": {},
+      "Urban waterfront / marina destinations": {}
+    },
+    "By Stay Duration": {
+      "Short Stay (1–2 Nights)": {},
+      "Medium Stay (3–6 Nights)": {},
+      "Extended Stay (7+ Nights)": {},
+      "Long-Term Contract Stay": {}
     },
     "By Region": {
-      "North America": {
-        "U.S.": {},
-        "Canada": {}
-      },
-      "Europe": {
-        "U.K.": {},
-        "Germany": {},
-        "Italy": {},
-        "France": {},
-        "Spain": {},
-        "Russia": {},
-        "Rest of Europe": {}
-      },
-      "Asia Pacific": {
-        "China": {},
-        "India": {},
-        "Japan": {},
-        "South Korea": {},
-        "ASEAN": {},
-        "Australia": {},
-        "Rest of Asia Pacific": {}
-      },
-      "Latin America": {
-        "Brazil": {},
-        "Argentina": {},
-        "Mexico": {},
-        "Rest of Latin America": {}
-      },
-      "Middle East & Africa": {
-        "GCC": {},
-        "South Africa": {},
-        "Rest of Middle East & Africa": {}
-      }
+      "North America": {},
+      "Europe": {},
+      "Asia Pacific": {},
+      "Latin America": {},
+      "Middle East": {},
+      "Africa": {}
+    }
+  },
+  "Japan": {
+    "By Accommodation Format": {
+      "Floating / houseboat stays": {},
+      "Overwater / floating villa stays": {},
+      "Waterfront luxury villas": {},
+      "Boutique experiential resort stays": {}
+    },
+    "By Price Positioning": {
+      "Premium": {},
+      "Luxury": {},
+      "Ultra-luxury": {}
+    },
+    "By Guest Segment": {
+      "Domestic affluent leisure travelers": {},
+      "Inbound luxury travelers": {},
+      "Couples / celebration stays": {},
+      "Families / private groups / exclusive-use stays": {}
+    },
+    "By Destination Type in Japan": {
+      "Coastal / beach resort destinations": {},
+      "Island destinations": {},
+      "Lake / nature waterfront destinations": {},
+      "Urban waterfront / marina destinations": {}
+    },
+    "By Stay Duration": {
+      "Short Stay (1–2 Nights)": {},
+      "Medium Stay (3–6 Nights)": {},
+      "Extended Stay (7+ Nights)": {},
+      "Long-Term Contract Stay": {}
     }
   }
 }

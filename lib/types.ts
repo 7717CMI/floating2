@@ -32,6 +32,7 @@ export interface SegmentDimension {
   b2c_hierarchy?: Record<string, string[]>;
   b2b_items?: string[]; // B2B-only items
   b2c_items?: string[]; // B2C-only items
+  geographies?: string[]; // Which geographies have data for this segment type
 }
 
 export interface SegmentHierarchy {

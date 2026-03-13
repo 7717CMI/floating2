@@ -1268,20 +1268,34 @@ export async function processJsonDataAsync(
 
     // Extract regions AND countries from "By Region" segment type as additional geographies
     // This builds a full geography hierarchy: Global > Regions > Countries
+    // Only treat "By Region" as geography hierarchy if regions have country children,
+    // otherwise treat it as a regular segment type with flat region values.
     const regionGeographies: string[] = []
     const regionToCountries: Record<string, string[]> = {}
     const allCountries: string[] = []
+    let byRegionIsGeographyHierarchy = false
     for (const topGeo of geographies) {
       const geoData = structureData[topGeo]
       if (geoData && typeof geoData === 'object') {
         // Look for "By Region" segment type
         const byRegionData = geoData['By Region']
         if (byRegionData && typeof byRegionData === 'object') {
-          // Extract region names (first level keys under "By Region")
+          // Check if any region has country children (nested hierarchy)
           const regions = Object.keys(byRegionData).filter(key => {
             const value = byRegionData[key]
             return value && typeof value === 'object' && !Array.isArray(value)
           })
+          const hasCountryChildren = regions.some(region => {
+            const regionData = byRegionData[region]
+            return regionData && typeof regionData === 'object' && Object.keys(regionData).length > 0
+          })
+          if (!hasCountryChildren) {
+            // Flat "By Region" - treat as regular segment type, skip geography extraction
+            console.log('"By Region" has flat segments (no country children) - treating as segment type')
+            continue
+          }
+          byRegionIsGeographyHierarchy = true
+          // Extract region names (first level keys under "By Region")
           regions.forEach(region => {
             if (!regionGeographies.includes(region) && !geographies.includes(region)) {
               regionGeographies.push(region)
@@ -1334,8 +1348,10 @@ export async function processJsonDataAsync(
     }
     console.log(`Found ${segmentTypes.size} segment types:`, Array.from(segmentTypes))
 
-    // Remove "By Region" (and similar) from segment types - these are geography dimensions, not segments
-    segmentTypes.delete('By Region')
+    // Remove "By Region" (and similar) from segment types only if they represent geography hierarchy
+    if (byRegionIsGeographyHierarchy) {
+      segmentTypes.delete('By Region')
+    }
     segmentTypes.delete('By State')
     segmentTypes.delete('By Country')
     console.log(`Segment types after removing geography types:`, Array.from(segmentTypes))
@@ -1388,6 +1404,12 @@ export async function processJsonDataAsync(
         allYears,
         segmentTypeIndex
       )
+      // Track which geographies have data for this segment type
+      const geosWithSegType = geographies.filter(geo => {
+        const geoStructure = structureData[geo]
+        return geoStructure && typeof geoStructure === 'object' && geoStructure[segmentType]
+      })
+      segmentDimension.geographies = geosWithSegType
       segments[segmentType] = segmentDimension
       valueRecords.push(...records)
 
@@ -1472,9 +1494,9 @@ export async function processJsonDataAsync(
     
     // Build metadata
     const metadata: Metadata = {
-      market_name: 'Normothermic Machine Perfusion Market',
+      market_name: 'Floating Hotel Market Demand Analysis and Market Outlook, Japan & Global, 2021–2033',
       market_type: 'Market Analysis',
-      industry: 'Healthcare & Pharmaceuticals',
+      industry: 'Hospitality & Luxury Travel',
       years: allYears,
       start_year: startYear,
       base_year: baseYear,
@@ -1483,7 +1505,7 @@ export async function processJsonDataAsync(
       forecast_years: allYears.filter(y => y > historicalEndYear),
       currency: 'USD',
       value_unit: 'Million',
-      volume_unit: 'Million Units',
+      volume_unit: 'Properties',
       has_value: valueRecords.length > 0,
       has_volume: volumeRecords.length > 0,
     }

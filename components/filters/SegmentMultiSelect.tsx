@@ -188,6 +188,25 @@ export function SegmentMultiSelect() {
     updateFilters({ segments: [] })
   }
 
+  // Auto-switch segment type if current one becomes unavailable for selected geographies
+  useEffect(() => {
+    if (!data || !filters.segmentType || filters.geographies.length === 0) return
+    const segDim = data.dimensions.segments[filters.segmentType]
+    if (segDim?.geographies && segDim.geographies.length > 0) {
+      const isAvailable = filters.geographies.some(geo => segDim.geographies!.includes(geo))
+      if (!isAvailable) {
+        // Find first available segment type
+        const available = Object.entries(data.dimensions.segments).find(([, dim]) => {
+          if (!dim.geographies || dim.geographies.length === 0) return true
+          return filters.geographies.some(geo => dim.geographies!.includes(geo))
+        })
+        if (available) {
+          updateFilters({ segmentType: available[0], segments: [] })
+        }
+      }
+    }
+  }, [data, filters.geographies, filters.segmentType, updateFilters])
+
   const handleSegmentTypeChange = (type: string) => {
     updateFilters({ 
       segmentType: type,
@@ -198,9 +217,16 @@ export function SegmentMultiSelect() {
   if (!data) return null
 
   const selectedCount = filters.segments.length
-  // Get all available segment types
+  // Get available segment types filtered by selected geographies
   const allSegmentTypes = Object.keys(data.dimensions.segments)
-  const segmentTypes = allSegmentTypes
+  const segmentTypes = allSegmentTypes.filter(type => {
+    const segDim = data.dimensions.segments[type]
+    // If geographies info is available, only show segment types that have data for at least one selected geography
+    if (segDim.geographies && segDim.geographies.length > 0 && filters.geographies.length > 0) {
+      return filters.geographies.some(geo => segDim.geographies!.includes(geo))
+    }
+    return true
+  })
 
   return (
     <div className="space-y-4" ref={dropdownRef}>

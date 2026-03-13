@@ -247,9 +247,15 @@ export function EnhancedFilterPanel() {
 
   if (!data) return null
 
-  // Get all segment types
+  // Get all segment types, filtered by selected geographies
+  const allSegmentTypes = Object.keys(data.dimensions.segments).filter(type => {
+    const segDim = data.dimensions.segments[type]
+    if (segDim.geographies && segDim.geographies.length > 0 && filters.geographies.length > 0) {
+      return filters.geographies.some(geo => segDim.geographies!.includes(geo))
+    }
+    return true
+  })
   // For volume mode, only show segment types that have actual volume records
-  const allSegmentTypes = Object.keys(data.dimensions.segments)
   const segmentTypes = filters.dataType === 'volume'
     ? (() => {
         const volumeRecords = data.data.volume.geography_segment_matrix
